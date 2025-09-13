@@ -1,0 +1,22 @@
+cc_binary(
+    name = "main_target",
+    srcs = [
+        "main.cc"
+    ],
+    copts = select({
+        ":verbose_on": ["-DVERBOSE"],
+        ":verbose_off": [],
+        "//conditions:default": [],
+    }),
+    
+)
+
+config_setting(
+    name = "verbose_on",
+    values = {"define": "VERBOSE=1"},
+)
+
+config_setting(
+    name = "verbose_off",
+    values = {"define": "VERBOSE=0"},
+)
