@@ -1,0 +1,5 @@
+module(name = "my_project", version = "0.1.0")
+
+# Register our custom extension
+sfml_ext = use_extension("//:deps.bzl", "sfml_ext")
+use_repo(sfml_ext, "sfml_bin")

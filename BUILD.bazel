@@ -8,6 +8,7 @@ cc_binary(
         ":verbose_off": [],
         "//conditions:default": [],
     }),
+    deps = ["@sfml_bin//:sfml"],
     
 )
 
