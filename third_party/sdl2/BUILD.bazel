@@ -1,0 +1,29 @@
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+
+cc_library(
+    name = "sdl2_lib",
+    srcs = [],
+    hdrs = glob(["include/**/*.h"]),
+    includes = ["include"],
+    linkopts = ["-lSDL2"],
+    visibility = ["//visibility:public"],
+    deps = ["//:sdl2-cmake-install"],
+)
+
+filegroup(
+    name = "srcs",
+    srcs = glob(["**"]),
+)
+
+cmake(
+    name = "sdl2-cmake-install",
+    # lib_name = "SDL2",
+    lib_source = ":srcs",  # we'll define this next
+    cache_entries = cache_entries,
+)
+
+cache_entries = {
+    "-DSDL_SHARED=OFF",
+    "-DSDL_STATIC=ON",
+    "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
+}
