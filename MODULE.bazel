@@ -1,5 +1,26 @@
 module(name = "my_project", version = "0.1.0")
 
 # Register our custom extension
-sfml_ext = use_extension("//:deps.bzl", "sfml_ext")
-use_repo(sfml_ext, "sfml_bin")
+# qt_ext = use_extension("//:deps.bzl", "qt_ext")
+# use_repo(qt_ext, "qt_bin")
+
+bazel_dep(name = "rules_qt", version = "1.0.0")
+
+local_path_override(
+    module_name = "rules_qt",
+    path = "rules_qt",
+)
+
+qt = use_extension("@rules_qt//:extensions.bzl", "qt")
+qt.fetch()
+use_repo(
+    qt,
+    "qt_linux_x86_64",
+    "qt_mac_aarch64",
+    "qt_windows_x86_64",
+)
+
+register_toolchains(
+    "@rules_qt//tools:all",
+    dev_dependency = True,
+)
