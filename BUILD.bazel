@@ -1,15 +1,8 @@
 load("@rules_qt//:qt.bzl", "qt_cc_binary")
 
-cc_binary(
-    name = "main_target",
-    srcs = [
-        "main.cc",
-    ],
-    # copts = select({
-    #     ":verbose_on": ["-DVERBOSE"],
-    #     ":verbose_off": [],
-    #     "//conditions:default": [],
-    # }),
+qt_cc_binary(
+    name = "hello_world",
+    srcs = ["main.cc"],
     deps = [
         "@rules_qt//:qt_core",
         "@rules_qt//:qt_widgets",
