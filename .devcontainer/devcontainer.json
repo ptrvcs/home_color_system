@@ -11,7 +11,7 @@
 		"ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {}
 	},
 	"mounts": [
-		"source=/home/pisti/workspace/rules_qt6,target=/workspaces/home_color_system/rules_qt,type=bind,consistency=cached"
+		
 	]
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
