@@ -1,14 +1,12 @@
-cc_binary(
-    name = "main_target",
-    srcs = [
-        "main.cc"
+load("@rules_qt//:qt.bzl", "qt_cc_binary")
+
+qt_cc_binary(
+    name = "hello_world",
+    srcs = ["app.cpp"],
+    deps = [
+        "@rules_qt//:qt_core",
+        "@rules_qt//:qt_widgets",
     ],
-    copts = select({
-        ":verbose_on": ["-DVERBOSE"],
-        ":verbose_off": [],
-        "//conditions:default": [],
-    }),
-    
 )
 
 config_setting(

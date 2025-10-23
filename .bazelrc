@@ -7,3 +7,12 @@ build:dbg --verbose_failures
 # Verbosity configs
 build:verbose --define VERBOSE=1
 build:quiet   --define VERBOSE=0
+
+build --noincompatible_disallow_empty_glob
+
+# GCC 13
+build:gcc13 --cxxopt=-std=c++20
+build:gcc13 --cxxopt=-Wall
+build:gcc13 --define compiler=gcc13
+build:gcc13 --cxxopt=-fpermissive # Needed for fmt
+

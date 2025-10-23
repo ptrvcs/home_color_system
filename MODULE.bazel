@@ -1,0 +1,24 @@
+module(name = "my_project", version = "0.1.0")
+
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_qt")
+
+git_override(
+    module_name = "rules_qt",
+    remote = "https://github.com/Vertexwahn/rules_qt6.git",
+    commit = "4cc924c4fa9cab10e3fde698607757eaa4d7ba2c",  # or a specific commit SHA
+)
+
+qt = use_extension("@rules_qt//extension:qt.bzl", "fetch")
+qt.install(
+    name = "qt_linux_x86_64",
+    build_file = "@rules_qt//extension:qt/6.8.3/linux_x86_64.BUILD",
+    os = "linux",
+    version = "6.8.3",
+)
+
+use_repo(qt, "qt_linux_x86_64")
+
+register_toolchains(
+    "@rules_qt//tools:all",
+)

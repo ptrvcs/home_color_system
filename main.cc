@@ -95,7 +95,7 @@ int main()
         // compute echo wave = sine * current amplitude
         int echo = value * std::sin(frequency * t);
 
-        // std::cout << "t=" << t << " value=" << echo << std::endl;
+        std::cout << "t=" << t << " value=" << echo << std::endl;
 
         // reduce amplitude slightly after each step (like fading sound)
         value *= decay;
@@ -103,3 +103,4 @@ int main()
 
     return 0;
 }
+
