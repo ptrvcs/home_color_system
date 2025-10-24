@@ -1,0 +1,18 @@
+load("@rules_qt//:qt.bzl", "qt_cc_library")
+
+qt_cc_library(
+    name = "dmx_controller",
+    srcs = [
+        "dmx_controller.cpp",
+    ],
+    hdrs = [
+        "dmx_controller.hpp",
+    ],
+    includes = ["./"],
+    deps = [
+        "@rules_qt//:qt",
+    ],
+    visibility = [
+        "//visibility:public",
+    ],
+)
