@@ -1,0 +1,29 @@
+load("@rules_qt//:qt.bzl", "qt_cc_library", "qt_resource")
+
+qt_resource(
+    name = "app_qml",
+    files = [
+        "main.qml",
+    ],
+    visibility = [
+        "//visibility:public",
+    ],
+)
+
+qt_cc_library(
+    name = "lighting_viewmodel",
+    srcs = [
+        "lighting_viewmodel.cpp",
+    ],
+    hdrs = [
+        "lighting_viewmodel.hpp",
+    ],
+    includes = ["./"],
+    deps = [
+        "@rules_qt//:qt",
+        "//app/core:dmx_controller",
+    ],
+    visibility = [
+        "//visibility:public",
+    ],
+)

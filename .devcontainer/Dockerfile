@@ -46,6 +46,15 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
     libopengl0 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
+    apt-get install -y --no-install-recommends \
+    libpcsclite1 \
+    libpcsclite-dev \
+    libpulse0 \
+    libpulse-dev \
+    libpipewire-0.3-0 \
+    libpipewire-0.3-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # [Optional] Uncomment this section to install additional vcpkg ports.
 # RUN su vscode -c "${VCPKG_ROOT}/vcpkg install <your-port-name-here>"

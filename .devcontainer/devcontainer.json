@@ -6,7 +6,6 @@
 		"dockerfile": "Dockerfile"
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/python:1": {},
 		"ghcr.io/devcontainers-community/features/bazel:1": {},
 		"ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {}
 	},

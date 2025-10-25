@@ -1,11 +1,13 @@
 load("@rules_qt//:qt.bzl", "qt_cc_binary")
 
 qt_cc_binary(
-    name = "hello_world",
-    srcs = ["app.cpp"],
+    name = "dmx_gui",
+    srcs = [
+        "main.cpp",
+    ],
     deps = [
-        "@rules_qt//:qt_core",
-        "@rules_qt//:qt_widgets",
+        "//app/ui:lighting_viewmodel",
+        "//app/ui:app_qml",
     ],
 )
 
