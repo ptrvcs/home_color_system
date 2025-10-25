@@ -1,0 +1,62 @@
+name: Bazel CI (DevContainer Image)
+
+on:
+  pull_request:
+      branches:
+        - main
+jobs:
+  bazel-build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Read devcontainer.json
+      - name: Read DevContainer config
+        id: devcontainer
+        run: |
+          echo "Building image from .devcontainer/Dockerfile"
+          cp .devcontainer/Dockerfile Dockerfile
+
+      # Step 3: Build the same image used by VSCode Dev Container
+      - name: Build DevContainer image
+        run: |
+          docker build -t home_color_system:ci .
+
+      # Step 4: Cache Bazel build outputs between runs
+      - name: Cache Bazel output
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/bazel
+          key: bazel-${{ runner.os }}-${{ hashFiles('**/*.bazel', '**/MODULE.bazel') }}
+          restore-keys: |
+            bazel-${{ runner.os }}
+
+      # Step 5: Run Bazel build inside container
+      - name: Run Bazel build inside container
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspaces/home_color_system \
+            -v ~/.cache/bazel:/root/.cache/bazel \
+            -w /workspaces/home_color_system \
+            home_color_system:ci \
+            bash -c "bazel build //:dmx_gui"
+
+      # Step 6: Run Bazel target to ensure it executes correctly
+      # - name: Run Bazel app inside container
+      #   run: |
+      #     docker run --rm \
+      #       -v ${{ github.workspace }}:/workspaces/home_color_system \
+      #       -v ~/.cache/bazel:/root/.cache/bazel \
+      #       -w /workspaces/home_color_system \
+      #       home_color_system:ci \
+      #       bash -c "bazel run //:main_target --config=quiet"
+
+      # # Optional: Step 7: Upload build result as artifact
+      # - name: Upload build artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: main_target_binary
+      #     path: bazel-bin/main_target
